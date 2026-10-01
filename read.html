@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>A book to read in Vesper</title>
+  <!-- Message apps fetch this page for a preview; they never see the fragment, so the card is generic. -->
+  <meta name="description" content="Someone shared a book with you. Read it free in Vesper for iPhone.">
+  <meta property="og:title" content="A book to read in Vesper">
+  <meta property="og:description" content="Someone shared a book with you. Read it free in Vesper for iPhone.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Vesper">
+  <meta name="robots" content="noindex">
+  <meta name="color-scheme" content="light dark">
+  <meta name="referrer" content="no-referrer">
+  <style>
+    /* Vesper's Manuscript tokens: ink for the main action, ultramarine only for the ring. */
+    :root {
+      --surface: #FAFAFA; --card: #FFFFFF; --ink: #141414; --muted: #737373; --faint: #A3A3A3;
+      --border: #E5E5E5; --accent: #0000BD;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --surface: #161616; --card: #1C1C1C; --ink: #E8E5DF; --muted: #9A958E; --faint: #6B665E;
+        --border: #2E2E2E; --accent: #8F8FFF;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--surface); color: var(--ink); }
+    body {
+      font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      min-height: 100vh; display: flex; flex-direction: column;
+      padding: max(32px, env(safe-area-inset-top)) 24px max(24px, env(safe-area-inset-bottom));
+    }
+    main { flex: 1; width: 100%; max-width: 440px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; }
+    .mark { display: flex; align-items: center; gap: 8px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 40px; }
+    .ring { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--accent); }
+    .eyebrow { color: var(--faint); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 12px; }
+    h1 { font-size: 34px; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 16px; font-weight: 700; overflow-wrap: anywhere; }
+    .lead { color: var(--muted); margin: 0 0 32px; }
+    .actions { display: flex; flex-direction: column; gap: 12px; }
+    .button {
+      display: block; text-align: center; text-decoration: none; font-weight: 600; font-size: 16px;
+      padding: 14px 24px; border-radius: 999px;
+    }
+    .primary { background: var(--ink); color: var(--surface); }
+    .secondary { color: var(--ink); border: 1px solid var(--border); background: var(--card); }
+    .hint { color: var(--faint); font-size: 13px; margin: 16px 0 0; text-align: center; }
+    footer { text-align: center; color: var(--faint); font-size: 13px; margin-top: 40px; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark"><span class="ring" aria-hidden="true"></span><span>vesper.</span></div>
+
+    <section id="phone" hidden>
+      <p class="eyebrow" data-text="eyebrow"></p>
+      <h1 id="title"></h1>
+      <p class="lead" data-text="lead"></p>
+      <div class="actions">
+        <a class="button primary" id="store" data-text="store"></a>
+        <a class="button secondary" id="open" data-text="open"></a>
+      </div>
+      <p class="hint" data-text="hint"></p>
+      <p class="hint" id="beta" data-text="beta" hidden></p>
+    </section>
+
+    <section id="desktop" hidden>
+      <p class="eyebrow" data-text="eyebrow"></p>
+      <h1 id="desktop-title"></h1>
+      <p class="lead" data-text="desktop"></p>
+      <p class="lead" data-text="desktopHint"></p>
+    </section>
+
+    <section id="broken" hidden>
+      <h1 data-text="brokenTitle"></h1>
+      <p class="lead" data-text="broken"></p>
+    </section>
+  </main>
+  <footer data-text="footer"></footer>
+  <noscript>Open this link on your iPhone in Vesper, or enable JavaScript to use this page. / Öffne diesen Link auf deinem iPhone in Vesper oder aktiviere JavaScript für diese Seite.</noscript>
+
+  <script>
+    const APP_STORE_URL = "https://apps.apple.com/app/id6817294459";
+    // Enable only after this app is publicly available, or replace with an approved public TestFlight URL.
+    const DOWNLOAD_AVAILABLE = false;
+
+    const strings = {
+      en: {
+        eyebrow: "Shared with you",
+        untitled: "A book for you",
+        lead: "Someone shared a book with you. Read it free in Vesper for iPhone.",
+        store: "Get Vesper on the App Store",
+        open: "Already have Vesper? Open the book",
+        hint: "After installing, come back here and tap “Open the book”.",
+        beta: "Vesper is currently in TestFlight. Ask the author how to join the beta, then return here to open the book.",
+        desktop: "Open this link on your iPhone to read the book in Vesper, for free.",
+        desktopHint: "Send it to yourself with AirDrop or Messages.",
+        brokenTitle: "This link is incomplete",
+        broken: "Ask the author to send it again.",
+        footer: "Vesper · A home for your novel",
+      },
+      de: {
+        eyebrow: "Mit dir geteilt",
+        untitled: "Ein Buch für dich",
+        lead: "Jemand hat ein Buch mit dir geteilt. Lies es kostenlos in Vesper für iPhone.",
+        store: "Vesper im App Store laden",
+        open: "Vesper schon installiert? Buch öffnen",
+        hint: "Komm nach der Installation hierher zurück und tippe auf „Buch öffnen“.",
+        beta: "Vesper ist derzeit in TestFlight. Frag die Autorin oder den Autor nach dem Beta-Zugang und komm danach hierher zurück, um das Buch zu öffnen.",
+        desktop: "Öffne diesen Link auf deinem iPhone, um das Buch kostenlos in Vesper zu lesen.",
+        desktopHint: "Schick ihn dir per AirDrop oder Nachrichten.",
+        brokenTitle: "Dieser Link ist unvollständig",
+        broken: "Bitte die Autorin oder den Autor, ihn noch einmal zu schicken.",
+        footer: "Vesper · Ein Zuhause für deinen Roman",
+      },
+    };
+    const language = (navigator.language || "en").toLowerCase().startsWith("de") ? "de" : "en";
+    const t = strings[language];
+    document.documentElement.lang = language;
+    document.querySelectorAll("[data-text]").forEach((element) => {
+      element.textContent = t[element.dataset.text];
+    });
+
+    // vesper.press/read#<token>&t=<title> — the same format the app reads (QuickShareLink).
+    const [token, ...rest] = location.hash.replace(/^#/, "").split("&");
+    const titlePart = rest.find((part) => part.startsWith("t="));
+    let title = null;
+    try { title = titlePart ? decodeURIComponent(titlePart.slice(2)) : null; } catch { title = null; }
+    const isToken = /^[A-Za-z0-9_-]{1,128}$/.test(token || "");
+
+    const isPhone = /iPhone|iPod/.test(navigator.userAgent);
+    const show = (id) => { document.getElementById(id).hidden = false; };
+
+    if (!isToken) {
+      show("broken");
+    } else if (isPhone) {
+      document.getElementById("title").textContent = title || t.untitled;
+      document.getElementById("store").href = APP_STORE_URL;
+      document.getElementById("store").hidden = !DOWNLOAD_AVAILABLE;
+      document.getElementById("beta").hidden = DOWNLOAD_AVAILABLE;
+      // A universal link tapped on its own domain stays in Safari, so the app's own scheme opens it.
+      document.getElementById("open").href = "vesper://read#" + token + (title ? "&t=" + encodeURIComponent(title) : "");
+      document.title = title ? `${title} · Vesper` : document.title;
+      show("phone");
+    } else {
+      document.getElementById("desktop-title").textContent = title || t.untitled;
+      show("desktop");
+    }
+  </script>
+</body>
+</html>

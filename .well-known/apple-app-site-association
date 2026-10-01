@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["T92SXJWMJD.app.vesper"],
+        "components": [
+          { "/": "/read", "comment": "Quick Share: vesper.press/read#<token>&t=<title>" },
+          { "/": "/read/", "comment": "The same, with a trailing slash" }
+        ]
+      }
+    ]
+  }
+}
