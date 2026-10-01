@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vesper · A home for your novel</title>
+  <meta name="description" content="Vesper is a writing app for novelists, for Mac and iPhone.">
+  <meta name="color-scheme" content="light dark">
+  <style>
+    :root { --surface: #FAFAFA; --ink: #141414; --muted: #737373; --accent: #0000BD; }
+    @media (prefers-color-scheme: dark) { :root { --surface: #161616; --ink: #E8E5DF; --muted: #9A958E; --accent: #8F8FFF; } }
+    html, body { margin: 0; background: var(--surface); color: var(--ink); }
+    body {
+      font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      min-height: 100vh; display: grid; place-items: center; padding: 24px; box-sizing: border-box; text-align: center;
+    }
+    .ring { width: 56px; height: 56px; border-radius: 50%; border: 7px solid var(--accent); margin: 0 auto 24px; box-sizing: border-box; }
+    h1 { font-size: 34px; letter-spacing: -0.02em; margin: 0 0 8px; }
+    p { color: var(--muted); margin: 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="ring" aria-hidden="true"></div>
+    <h1>vesper.</h1>
+    <p>A home for your novel. For Mac and iPhone.</p>
+  </main>
+</body>
+</html>
